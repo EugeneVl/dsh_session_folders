@@ -1,5 +1,7 @@
 # dsh-session-folders
 
+[**中文版 README**](README_zh.md)
+
 A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace browser is replaced with a browser that adds **session folders** — one level of named folders per workspace. Sessions can be dragged into folders or moved via the context menu; folder data is persisted server-side and survives page reloads. Status badges mirror the built-in session browser. No harness changes.
 
 ## Features
