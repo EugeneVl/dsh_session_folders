@@ -1,79 +1,75 @@
 # dsh-session-folders
 
-[English](README.en.md) | Русский
+A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace browser is replaced with a browser that adds **session folders** — one level of named folders per workspace. Sessions can be dragged into folders or moved via the context menu; folder data is persisted server-side and survives page reloads. Status badges mirror the built-in session browser. No harness changes.
 
-Плагин папок сессий для DeepSeek Harness Web: в сайдбаре вместо встроенного браузера рабочих областей появляется браузер с **папками сессий** — один уровень именованных папок на рабочую область. Сессии перетаскиваются в папки (drag-and-drop) или перемещаются через контекстное меню; данные хранятся на стороне сервера и переживают перезагрузку страницы. Статус-бейджи повторяют встроенный браузер сессий. Изменений ядра DSH нет.
+## Features
 
-<sub><span style="opacity:.6">Проект выполнен с помощью dsh + Deepseek-V4-Flash0731</span></sub>
+- **Session folders**: one level of named folders per workspace; sessions outside folders live in the "inbox" (loose) bucket
+- **Move sessions**: drag-and-drop a session onto a folder, or use the row context menu — "Move to folder…"; "Move to inbox" returns a session from a folder to the loose bucket
+- **Folder management**: create, rename, delete (with confirmation); names are unique per workspace (case-insensitive)
+- **Session search** with match highlighting — by title and content
+- **Status badges** Running / Completed — mirroring the built-in session browser
+- **Server-side persistence**: folders live in a DSH storage domain and survive page reloads; view state (collapsed folders, etc.) lives in browser localStorage
+- **The server is the source of truth**: every action is validated server-side (workspace existence, session membership, name conflicts); the client only mirrors the rules
+- **Bilingual UI**: adapts to the page language (zh / en)
 
-## Возможности
+## Installation
 
-- **Папки сессий**: один уровень именованных папок на рабочую область; сессии вне папок лежат во «Входящих» (loose)
-- **Перемещение сессий**: drag-and-drop сессии на папку, либо контекстное меню строки — «Move to folder…»; пункт «Move to inbox» возвращает сессию из папки во входящие
-- **Управление папками**: создание, переименование, удаление (с подтверждением); имена уникальны в пределах рабочей области (без учёта регистра)
-- **Поиск по сессиям** с подсветкой совпадений — по заголовку и содержимому
-- **Статус-бейджи** Running / Completed — как у встроенного браузера сессий
-- **Серверная персистентность**: папки хранятся в storage domain DSH и переживают перезагрузку страницы; состояние просмотра (свёрнутые папки и пр.) — в localStorage браузера
-- **Сервер — источник истины**: каждое действие валидируется на сервере (существование рабочей области, принадлежность сессии, конфликт имён); клиент лишь зеркалит правила
-- **Двуязычный интерфейс**: русский язык сайдбара не затронут — плагин адаптируется под язык страницы (zh / en)
-
-## Установка
-
-### Из GitHub
+### From GitHub
 
 ```sh
 dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#v0.2.0'
 ```
 
-### Из локальной папки
+### From a local directory
 
 ```sh
 dsh plugin --profile web add /absolute/path/to/dsh-session-folders
 ```
 
-### Из tarball
+### From a tarball
 
 ```sh
 pnpm pack
 dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.2.0.tgz
 ```
 
-После установки **перезапустите** `dsh web` (host-плагин и клиентский бандл загружаются при старте).
+**Restart** `dsh web` after installing (the host plugin and the client bundle are loaded at startup).
 
-## Использование
+## Usage
 
-1. Откройте сайдбар: в каждой рабочей области папки показаны над входящими сессиями
-2. **Создать папку** — контекстное меню рабочей области или кнопка «New folder»; имя должно быть уникальным в пределах рабочей области
-3. **Переместить сессию** — перетащите строку сессии на папку (только в папку той же рабочей области) либо контекстное меню → «Move to folder…»
-4. **Вернуть во входящие** — контекстное меню → «Move to inbox»
-5. **Переименовать / удалить папку** — контекстное меню папки; удаление с подтверждением, сессии папки становятся входящими
-6. **Поиск** — поле вверху браузера; совпадения подсвечиваются, результаты кликабельны
+1. Open the sidebar: in each workspace, folders are shown above the loose sessions
+2. **Create a folder** — workspace context menu or the "New folder" button; the name must be unique within the workspace
+3. **Move a session** — drag the session row onto a folder (only into a folder of the same workspace), or context menu → "Move to folder…"
+4. **Move back to the inbox** — context menu → "Move to inbox"
+5. **Rename / delete a folder** — folder context menu; deletion asks for confirmation and the folder's sessions become loose
+6. **Search** — the field at the top of the browser; matches are highlighted and clickable
 
-## Как это устроено
+## How it works
 
-| Слой | Реализация |
+| Layer | Implementation |
 |---|---|
-| Host | `lib/index.js` — cordis-плагин: 5 POST-роутов `/dsh-session-folders/{list,create,rename,delete,move}`; собственный storage domain `dsh_session_folders` (одна глобальная запись со списком папок); мутации сериализуются promise-хвостом, чтобы два браузера не затирали запись друг друга; рабочая область и принадлежность сессии проверяются через `ctx.workspaceRegistry` |
-| Client | `lib/client.js` — бандл через `window.__ModuleLoader__.load`, регистрируется в слоте `sidebar.workspaces` (приоритет -1); сервисы `slots / locale / sessions / workspaces`; состояние просмотра в localStorage (`dsh.session-folders.view.v1`) |
+| Host | `lib/index.js` — a cordis plug-in: 5 POST routes `/dsh-session-folders/{list,create,rename,delete,move}`; its own storage domain `dsh_session_folders` (one global record holding the folder list); mutations are serialized through a promise tail so two browsers cannot overwrite each other; workspace and session membership are validated via `ctx.workspaceRegistry` |
+| Client | `lib/client.js` — a bundle loaded via `window.__ModuleLoader__.load`, registered in the `sidebar.workspaces` slot (priority -1); services `slots / locale / sessions / workspaces`; view state in localStorage (`dsh.session-folders.view.v1`) |
 
-- Папки не трогают учёт сессий: рабочая область владеет сессиями, папки — только группировка. Сессия, не входящая ни в одну папку, по определению «входящая»
-- Удаление рабочей области не удаляет записи папок: они перестают отдаваться в списке (фильтр по живым workspace id) и остаются в хранилище безвредно
-- Домены DSH обеспечивают durability-first запись; файл хранилища — `~/.dsh/storages/dsh_session_folders.json`
-- Без изменений системного промпта, без новых инструментов модели — ноль влияния на токены
+- Folders do not touch session accounting: the workspace owns sessions, folders are only grouping. A session listed in no folder is loose by definition
+- Deleting a workspace does not delete folder records: they stop being served (filtered by live workspace ids) and stay harmlessly in storage
+- DSH domains guarantee durability-first writes; the storage file is `~/.dsh/storages/dsh_session_folders.json`
+- No system-prompt changes, no new model tools — zero token impact
 
-## Ограничения
+## Limitations
 
-- Один уровень папок: вложенные папки не поддерживаются
-- Перемещение возможно только в папку рабочей области, которой сессия принадлежит; сессия вне всякой рабочей области (unaccounted) в папку не попадает
-- Имя папки до 80 символов; дубликаты имён запрещены (без учёта регистра)
+- One folder level only: nested folders are not supported
+- A session can only be moved into a folder of the workspace that owns it; a session outside every workspace (unaccounted) cannot enter a folder
+- Folder names are capped at 80 characters; duplicate names are rejected (case-insensitive)
 
-## Совместимость
+## Compatibility
 
-Текущая версия рассчитана на DSH `0.1.0-rc.6` (слот `sidebar.workspaces`, сервисы `webServer / storageDomain / workspaceRegistry`, пакеты `@deepseek-ai/dsh-storage-domain`, `@deepseek-ai/dsh-workspace`, `zod`). При обновлении DSH с изменением API слотов/сервисов нужна адаптация.
+Current version targets DSH `0.1.0-rc.6` (the `sidebar.workspaces` slot, `webServer / storageDomain / workspaceRegistry` services, `@deepseek-ai/dsh-storage-domain`, `@deepseek-ai/dsh-workspace`, `zod`). A DSH upgrade that changes slot/service APIs may require adaptation.
 
-## Разработка
+## Development
 
-Сборки нет: `lib/` — закоммиченный бандл (host + client). Правки вносятся в файлы напрямую, проверка синтаксиса:
+There is no build step: `lib/` is the committed bundle (host + client). Edit the files directly and syntax-check:
 
 ```sh
 node --check lib/index.js
