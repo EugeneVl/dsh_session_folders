@@ -5,8 +5,9 @@ A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace 
 ## Features
 
 - **Session folders**: one level of named folders per workspace; sessions outside folders live in the "inbox" (loose) bucket
-- **Move sessions**: drag-and-drop a session onto a folder, or use the row context menu — "Move to folder…" with the option to create a new folder and move the session into it on the spot; "Move to inbox" returns a session from a folder to the loose bucket
+- **Move sessions**: drag-and-drop a session onto a folder, or use the row context menu — "Move to folder…", with a "New folder…" entry that creates a folder and moves the session into it on the spot; the submenu's "Workspace" entry returns a session from a folder to the loose bucket
 - **Folder management**: create, rename, delete (with confirmation); names are unique per workspace (case-insensitive)
+- **Collapse / expand all**: the chevron button pair in the browser header folds and unfolds every workspace group and folder in one click
 - **Session search** with match highlighting — by title and content
 - **Status badges** Running / Completed — mirroring the built-in session browser
 - **Server-side persistence**: folders live in a DSH storage domain and survive page reloads; view state (collapsed folders, etc.) lives in browser localStorage
@@ -39,11 +40,14 @@ dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.3.0.tgz
 ## Usage
 
 1. Open the sidebar: in each workspace, folders are shown above the loose sessions
-2. **Create a folder** — workspace context menu or the "New folder" button; the name must be unique within the workspace
+2. **Create a folder** — workspace context menu → "New folder"; the name must be unique within the workspace
 3. **Move a session** — drag the session row onto a folder (only into a folder of the same workspace), or context menu → "Move to folder…" → pick a folder, or "New folder…" to create one and move right away
-4. **Move back to the inbox** — context menu → "Move to inbox"
+4. **Move back to the loose area** — context menu → "Move to folder…" → "Workspace" (the first entry)
 5. **Rename / delete a folder** — folder context menu; deletion asks for confirmation and the folder's sessions become loose
 6. **Search** — the field at the top of the browser; matches are highlighted and clickable
+7. **Collapse / expand everything** — the chevron button pair at the top of the browser:
+   - collapse: folds all workspace groups and folders
+   - expand: unfolds them again
 
 ## How it works
 
@@ -75,3 +79,11 @@ There is no build step: `lib/` is the committed bundle (host + client). Edit the
 node --check lib/index.js
 node --check lib/client.js
 ```
+
+Client-side changes (menu items, buttons, rendering) usually only need a browser refresh — the bundle is served on demand; host-side changes (routes, validation) need a `dsh web` restart.
+
+### Release checklist
+
+1. Bump `version` in `package.json` and add a `CHANGELOG.md` entry
+2. Commit, tag `vN.N.N`, push master and the tag
+3. Point the profile at the new release: `dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#vN.N.N'`, then restart `dsh web`
