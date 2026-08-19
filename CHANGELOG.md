@@ -13,6 +13,7 @@
 - **Show more / Show less** in every folder and the Archive block: at most five sessions are shown until the overflow row is clicked (mirrors the original session browser)
 - **New session buttons**: a plus on a workspace row starts a session in that workspace; a smaller plus on a folder row starts a session directly inside that folder
 - **Quick archive on hover**: hovering a session row swaps the timestamp for a small archive icon; clicking it archives the session (the swap happens in place, so the layout never shifts)
+- **Open workspace folder**: the first button on a workspace row (folder icon) opens the workspace root directory in the system file manager (host's native `openPath` API)
 
 ## v0.3.0 (2026-08-19)
 
