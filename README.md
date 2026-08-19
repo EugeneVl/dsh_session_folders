@@ -63,7 +63,7 @@ dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.4.0.tgz
 10. **Open the workspace folder** — the folder button (first on the workspace row) opens the workspace root directory in the system file manager
 11. **New session** — the plus button on a workspace row starts a session in that workspace; the smaller plus on a folder row starts a session directly inside that folder
 12. **Archive** — the archive icon on a workspace row shows/hides the virtual Archive folder (every archived session of the workspace, newest first, five at a time). Drop a session onto it to archive it; drag an archived session onto a folder or the loose area to restore it there
-13. **Restore** — right-click an archived session → "Restore to original folder" (back where it was); click it to restore into the **Restored** folder and open it. The Restored folder is always first and hides itself while empty
+13. **Restore** — right-click an archived session → "Restore to original folder" (back where it was); click it to restore into the **Restored** folder, which expands automatically if it was collapsed, and opens the session. The Restored folder is always first and hides itself while empty
 14. **Quick archive** — hover a session row: the timestamp is replaced by an archive icon; click it to archive the session
 
 ## How it works
