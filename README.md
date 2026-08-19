@@ -5,7 +5,7 @@ A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace 
 ## Features
 
 - **Session folders**: one level of named folders per workspace; sessions outside folders live in the "inbox" (loose) bucket
-- **Move sessions**: drag-and-drop a session onto a folder, or use the row context menu — "Move to folder…"; "Move to inbox" returns a session from a folder to the loose bucket
+- **Move sessions**: drag-and-drop a session onto a folder, or use the row context menu — "Move to folder…" with the option to create a new folder and move the session into it on the spot; "Move to inbox" returns a session from a folder to the loose bucket
 - **Folder management**: create, rename, delete (with confirmation); names are unique per workspace (case-insensitive)
 - **Session search** with match highlighting — by title and content
 - **Status badges** Running / Completed — mirroring the built-in session browser
@@ -18,7 +18,7 @@ A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace 
 ### From GitHub
 
 ```sh
-dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#v0.2.0'
+dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#v0.3.0'
 ```
 
 ### From a local directory
@@ -31,7 +31,7 @@ dsh plugin --profile web add /absolute/path/to/dsh-session-folders
 
 ```sh
 pnpm pack
-dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.2.0.tgz
+dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.3.0.tgz
 ```
 
 **Restart** `dsh web` after installing (the host plugin and the client bundle are loaded at startup).
@@ -40,7 +40,7 @@ dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.2.0.tgz
 
 1. Open the sidebar: in each workspace, folders are shown above the loose sessions
 2. **Create a folder** — workspace context menu or the "New folder" button; the name must be unique within the workspace
-3. **Move a session** — drag the session row onto a folder (only into a folder of the same workspace), or context menu → "Move to folder…"
+3. **Move a session** — drag the session row onto a folder (only into a folder of the same workspace), or context menu → "Move to folder…" → pick a folder, or "New folder…" to create one and move right away
 4. **Move back to the inbox** — context menu → "Move to inbox"
 5. **Rename / delete a folder** — folder context menu; deletion asks for confirmation and the folder's sessions become loose
 6. **Search** — the field at the top of the browser; matches are highlighted and clickable
