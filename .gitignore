@@ -1,4 +1,5 @@
 node_modules/
+.dsh/
 *.tgz
 *.log
 .DS_Store

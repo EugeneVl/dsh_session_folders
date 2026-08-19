@@ -13,6 +13,7 @@ A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace 
 - **Reorder by drag-and-drop**: drag a workspace row to reorder workspaces; drag a folder row to reorder folders inside its workspace (folders stay above the loose sessions, session sorting by time is unchanged); the order is persisted server-side
 - **Session search** with match highlighting — by title and content
 - **Status badges** Running / Completed — mirroring the built-in session browser
+- **Quick archive on hover**: hovering a session row swaps the timestamp for a small archive icon — one click archives the session (same as the context-menu action); the swap happens in place, so the layout never shifts
 - **New session buttons**: a plus icon on a workspace row starts a new session in that workspace; a smaller plus on a folder row starts a session directly inside that folder (the created blank session is moved into the folder and opened)
 - **Archive block**: an archive icon on a workspace row shows/hides a virtual Archive folder with every archived session of the workspace; while shown, the icon renders struck through. The folder appears collapsed, lists the newest archived sessions first (the first five, with a "Show N more / Show less" row like the original browser), and drops: dropping a session onto it archives it (same as the context-menu action); dropping an archived session onto a folder or the loose area restores it there
 - **Restore from the Archive**: a right-click on an archived session offers "Restore to original folder" (the session returns to the folder it was in when archived, or to the loose area); a left-click restores the session into the workspace's **Restored** folder (created on demand) and opens it in chat. Restored sessions are kept apart from the regular ones: the Restored folder always sits first (right below the Archive block) and hides itself whenever it holds no visible sessions
@@ -26,7 +27,7 @@ A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace 
 ### From GitHub
 
 ```sh
-dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#v0.3.0'
+dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#v0.4.0'
 ```
 
 ### From a local directory
@@ -39,7 +40,7 @@ dsh plugin --profile web add /absolute/path/to/dsh-session-folders
 
 ```sh
 pnpm pack
-dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.3.0.tgz
+dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.4.0.tgz
 ```
 
 **Restart** `dsh web` after installing (the host plugin and the client bundle are loaded at startup).
@@ -60,6 +61,7 @@ dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.3.0.tgz
 10. **New session** — the plus button on a workspace row starts a session in that workspace; the smaller plus on a folder row starts a session directly inside that folder
 11. **Archive** — the archive icon on a workspace row shows/hides the virtual Archive folder (every archived session of the workspace, newest first, five at a time). Drop a session onto it to archive it; drag an archived session onto a folder or the loose area to restore it there
 12. **Restore** — right-click an archived session → "Restore to original folder" (back where it was); click it to restore into the **Restored** folder and open it. The Restored folder is always first and hides itself while empty
+13. **Quick archive** — hover a session row: the timestamp is replaced by an archive icon; click it to archive the session
 
 ## How it works
 
