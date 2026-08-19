@@ -6,22 +6,36 @@ A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace 
 
 ## Features
 
+#### Organization
+
 - **Session folders**: one level of named folders per workspace; sessions outside folders live in the "inbox" (loose) bucket
 - **Move sessions**: drag-and-drop a session onto a folder, or use the row context menu — "Move to folder…", with a "New folder…" entry that creates a folder and moves the session into it on the spot; the submenu's "Workspace" entry returns a session from a folder to the loose bucket
 - **Folder management**: create, rename, delete (with confirmation); names are unique per workspace (case-insensitive)
-- **Context menus**: every session / folder / workspace row opens its actions menu on right-click (the per-row “…” buttons are removed); each action carries an icon
-- **Pin / Unpin sessions**: a pinned session always sits first in its folder or in the loose bucket; the pin is persisted server-side and follows the session when it is moved; a pinned session with no status badge shows a small pin icon in its status slot
-- **Collapse / expand all**: the chevron button pair in the browser header folds and unfolds every workspace group and folder in one click
 - **Reorder by drag-and-drop**: drag a workspace row to reorder workspaces; drag a folder row to reorder folders inside its workspace (folders stay above the loose sessions, session sorting by time is unchanged); the order is persisted server-side
-- **Session search** with match highlighting — by title and content
-- **Status badges** Running / Completed — mirroring the built-in session browser
+- **Show more / Show less** in every folder and the Archive block: at most five sessions are shown until the overflow row is clicked; the expanded state is per folder and local to the browser session
+
+#### Session actions
+
+- **Context menus**: every session / folder / workspace row opens its actions menu on right-click (the per-row "…" buttons are removed); each action carries an icon
+- **Pin / Unpin sessions**: a pinned session always sits first in its folder or in the loose bucket; the pin is persisted server-side and follows the session when it is moved; a pinned session with no status badge shows a small pin icon in its status slot
 - **Quick archive on hover**: hovering a session row swaps the timestamp for a small archive icon — one click archives the session (same as the context-menu action); the swap happens in place, so the layout never shifts
 - **New session buttons**: a plus icon on a workspace row starts a new session in that workspace; a smaller plus on a folder row starts a session directly inside that folder (the created blank session is moved into the folder and opened)
-- **Open workspace folder**: the first button on a workspace row (folder icon) opens the workspace root directory with the operating system's default file manager, via the host's native `openPath` API
-- **Recent section**: above the workspace list, the five most recent workspace sessions (from folders or the loose area), newest first; clicking one opens it in chat and it stays highlighted both in Recent and in its workspace/folder. The header collapses/expands the section (state persists, and it follows Collapse all / Expand all)
-- **Archive block**: an archive icon on a workspace row shows/hides a virtual Archive folder with every archived session of the workspace; while shown, the icon renders struck through. Showing the folder also opens it expanded; it lists the newest archived sessions first (the first five, with a "Show N more / Show less" row like the original browser), and drops: dropping a session onto it archives it (same as the context-menu action); dropping an archived session onto a folder or the loose area restores it there
+- **Status badges** Running / Completed — mirroring the built-in session browser
+
+#### Archive & restore
+
+- **Archive block**: an archive icon on a workspace row shows/hides a virtual Archive folder with every archived session of the workspace; while shown, the icon renders struck through. Showing the folder also opens it expanded; it lists the newest archived sessions first (the first five, with a "Show N more / Show less" row), and drops: dropping a session onto it archives it (same as the context-menu action); dropping an archived session onto a folder or the loose area restores it there
 - **Restore from the Archive**: a right-click on an archived session offers "Restore to original folder" (the session returns to the folder it was in when archived, or to the loose area); a left-click restores the session into the workspace's **Restored** folder (created on demand) and opens it in chat. Restored sessions are kept apart from the regular ones: the Restored folder always sits first (right below the Archive block) and hides itself whenever it holds no visible sessions
-- **Show more / Show less** in every folder and the Archive block: at most five sessions are shown until the overflow row is clicked; the expanded state is per folder and local to the browser session
+
+#### Navigation
+
+- **Recent section**: above the workspace list, the five most recent workspace sessions (from folders or the loose area), newest first; clicking one opens it in chat, expands collapsed workspace/folder levels so it is visible, and it stays highlighted both in Recent and in its workspace/folder. The header collapses/expands the section (state persists)
+- **Session search** with match highlighting — by title and content
+- **Open workspace folder**: the first button on a workspace row (folder icon) opens the workspace root directory with the operating system's default file manager, via the host's native `openPath` API
+- **Collapse / expand all**: the chevron button pair in the browser header folds and unfolds every workspace group, folder, the Recent section and the Archive blocks in one click
+
+#### Persistence & UI
+
 - **Server-side persistence**: folders live in a DSH storage domain and survive page reloads; view state (collapsed folders, etc.) lives in browser localStorage
 - **The server is the source of truth**: every action is validated server-side (workspace existence, session membership, name conflicts); the client only mirrors the rules
 - **Bilingual UI**: adapts to the page language (zh / en)
