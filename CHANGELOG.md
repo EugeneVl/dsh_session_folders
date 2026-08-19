@@ -1,5 +1,18 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+- Drag-and-drop reordering: workspace rows and folder rows can be dragged to new positions (folders always stay above the loose sessions; session sorting by time is unchanged); the order is persisted server-side
+- Row actions moved to right-click context menus on session, folder, and workspace rows (the per-row "…" buttons are gone); every menu item carries an icon
+- **Pin / Unpin sessions**: a pinned session always sits first in its folder or in the loose bucket; pin state is persisted server-side and follows the session across moves
+- A pinned session with no status badge shows a small pin icon in its status slot
+- **Archive block**: an archive icon on the workspace row shows/hides a virtual Archive folder with every archived session of the workspace (struck icon while shown); dropping a session onto it archives it (same as the context-menu action), dropping an archived session onto a folder or the loose area restores it there
+- **Restore from the Archive**: right-click an archived session → "Restore to original folder" (the session returns where it was); click an archived session to restore it into the workspace's **Restored** folder (created on demand, always listed first, hidden while empty) and open it in chat
+- **Show more / Show less** in every folder and the Archive block: at most five sessions are shown until the overflow row is clicked (mirrors the original session browser)
+- **New session buttons**: a plus on a workspace row starts a session in that workspace; a smaller plus on a folder row starts a session directly inside that folder
+
 ## v0.3.0 (2026-08-19)
 
 ### Added
