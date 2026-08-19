@@ -65,23 +65,40 @@ dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.4.0.tgz
 
 ## Usage
 
+#### Getting started
+
 1. Open the sidebar: in each workspace, folders are shown above the loose sessions
-2. **Create a folder** — right-click the workspace row → "New folder"; the name must be unique within the workspace
-3. **Move a session** — drag the session row onto a folder (only into a folder of the same workspace), or right-click the session → "Move to folder…" → pick a folder, or "New folder…" to create one and move right away
-4. **Move back to the loose area** — right-click the session → "Move to folder…" → "Workspace" (the first entry)
-5. **Pin a session** — right-click it → "Pin": the session jumps to the top of its folder (or of the loose bucket) and stays there while other sessions come and go; "Unpin" restores the newest-first order. A pinned session with no status badge is marked with a small pin icon in its status slot
-6. **Rename / delete a folder** — right-click the folder row; deletion asks for confirmation and the folder's sessions become loose
-7. **Search** — the field at the top of the browser; matches are highlighted and clickable
-8. **Collapse / expand everything** — the chevron button pair at the top of the browser:
+
+#### Folders
+
+1. **Create a folder** — right-click the workspace row → "New folder"; the name must be unique within the workspace
+2. **Rename / delete a folder** — right-click the folder row; deletion asks for confirmation and the folder's sessions become loose
+3. **Reorder** — drag a workspace row to a new position; drag a folder row within its workspace (drop on the upper/lower half of a row to place it before/after)
+
+#### Sessions
+
+1. **Move a session** — drag the session row onto a folder (only into a folder of the same workspace), or right-click the session → "Move to folder…" → pick a folder, or "New folder…" to create one and move right away
+2. **Move back to the loose area** — right-click the session → "Move to folder…" → "Workspace" (the first entry)
+3. **Pin a session** — right-click it → "Pin": the session jumps to the top of its folder (or of the loose bucket) and stays there while other sessions come and go; "Unpin" restores the newest-first order; a pinned session with no status badge is marked with a small pin icon in its status slot
+4. **New session** — the plus button on a workspace row starts a session in that workspace; the smaller plus on a folder row starts a session directly inside that folder
+5. **Quick archive** — hover a session row: the timestamp is replaced by an archive icon; click it to archive the session
+
+#### Archive & restore
+
+1. **Archive** — the archive icon on a workspace row shows/hides the virtual Archive folder (every archived session of the workspace, newest first, five at a time). Drop a session onto it to archive it; drag an archived session onto a folder or the loose area to restore it there
+2. **Restore** — right-click an archived session → "Restore to original folder" (back where it was); click it to restore into the **Restored** folder, which expands automatically if it was collapsed, and opens the session. The Restored folder is always first and hides itself while empty
+
+#### Find & navigate
+
+1. **Search** — the field at the top of the browser; matches are highlighted and clickable
+2. **Recent** — the section above the workspace list shows the five most recent sessions (folders + loose area). Click one to open it; the row in Recent and the workspace/folder icons mark the current session. The header collapses the section
+3. **Open the workspace folder** — the folder button (first on the workspace row) opens the workspace root directory in the system file manager
+
+#### View
+
+1. **Collapse / expand everything** — the chevron button pair at the top of the browser:
    - collapse: folds all workspace groups and folders
    - expand: unfolds them again
-9. **Reorder** — drag a workspace row to a new position; drag a folder row within its workspace (drop on the upper/lower half of a row to place it before/after)
-10. **Open the workspace folder** — the folder button (first on the workspace row) opens the workspace root directory in the system file manager
-11. **New session** — the plus button on a workspace row starts a session in that workspace; the smaller plus on a folder row starts a session directly inside that folder
-12. **Archive** — the archive icon on a workspace row shows/hides the virtual Archive folder (every archived session of the workspace, newest first, five at a time). Drop a session onto it to archive it; drag an archived session onto a folder or the loose area to restore it there
-13. **Recent** — the section above the workspace list shows the five most recent sessions (folders + loose area). Click one to open it; the row in Recent and the workspace/folder icons mark the current session. The header collapses the section
-14. **Restore** — right-click an archived session → "Restore to original folder" (back where it was); click it to restore into the **Restored** folder, which expands automatically if it was collapsed, and opens the session. The Restored folder is always first and hides itself while empty
-15. **Quick archive** — hover a session row: the timestamp is replaced by an archive icon; click it to archive the session
 
 ## How it works
 
