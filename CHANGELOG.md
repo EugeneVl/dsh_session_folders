@@ -15,6 +15,7 @@
 - **Quick archive on hover**: hovering a session row swaps the timestamp for a small archive icon; clicking it archives the session (the swap happens in place, so the layout never shifts)
 - **Open workspace folder**: the first button on a workspace row (folder icon) opens the workspace root directory in the system file manager (host's native `openPath` API)
 - Restoring a session with a click now expands the **Restored** folder automatically when it was collapsed, so the restored session is immediately visible
+- **Recent section**: above the workspace list, the five most recent workspace sessions (folders + loose area); clicking one opens it and highlights it in Recent and in its workspace/folder; the header collapses the section (state persists, Collapse all / Expand all apply)
 
 ## v0.3.0 (2026-08-19)
 
