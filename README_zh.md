@@ -9,6 +9,8 @@
 - **会话文件夹**：每个工作区一层命名文件夹；不在文件夹中的会话位于「收件箱」（自由区域）
 - **移动会话**：拖拽会话到文件夹，或使用右键菜单——「移动到文件夹…」，其中的「新建文件夹…」可当场创建文件夹并移入会话；子菜单的「Workspace」项把会话从文件夹移回自由区域
 - **文件夹管理**：新建、重命名、删除（需确认）；名称在工作区内唯一（不区分大小写）
+- **就地重命名**：双击会话标题即可就地改名——Enter 提交，Esc 取消
+- **自动命名**：会话右键菜单提供「自动命名」——用会话自己的模型读取首条用户消息，生成 3–4 个词的简短标题（描述过程/功能/任务，使用消息的语言）；结果像手动重命名一样被固定
 - **拖拽排序**：拖拽工作区行可调整工作区顺序；拖拽文件夹行可调整其工作区内的文件夹顺序（文件夹始终位于自由区域上方，会话按时间排序不变）；顺序保存在服务端
 - **显示更多 / 显示更少**：每个文件夹和 Archive 块中最多先显示 5 条会话，点击溢出行后显示全部；展开状态按文件夹分别记忆，仅作用于当前浏览器会话
 
@@ -70,7 +72,7 @@ dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.4.0.tgz
 #### 文件夹
 
 1. **新建文件夹**——右键工作区行 →「新建文件夹」；名称在工作区内必须唯一
-2. **重命名 / 删除文件夹**——右键文件夹行；删除需确认，文件夹内会话将变为自由会话
+2. **重命名 / 删除文件夹**——右键文件夹行 →「重命名」；删除需确认，文件夹内会话将变为自由会话
 3. **排序**——拖拽工作区行到新位置；在工作区内拖拽文件夹行（放到某行的上半/下半表示插到其前/后）
 
 #### 会话
@@ -79,7 +81,9 @@ dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.4.0.tgz
 2. **移回自由区域**——右键会话 →「移动到文件夹…」→「Workspace」（第一项）
 3. **置顶会话**——右键 →「置顶」：会话跳到其文件夹（或自由区域）顶部并在其他会话增减时保持；「取消置顶」恢复按最新优先排序；没有状态徽章的置顶会话在状态槽位显示小图钉
 4. **新建会话**——工作区行上的「+」在该工作区新建会话；文件夹行上较小的「+」直接在文件夹内新建会话
-5. **快速归档**——悬停会话行：时间戳原位替换为归档图标；点击即归档
+5. **重命名会话**——双击其标题（Enter 提交，Esc 取消），或右键 →「重命名」
+6. **自动命名**——右键会话 →「自动命名」：会话的模型根据首条用户消息生成 3–4 个词的标题。空闲时不产生任何调用；失败显示在通知栏
+7. **快速归档**——悬停会话行：时间戳原位替换为归档图标；点击即归档
 
 #### 归档与恢复
 
@@ -102,7 +106,7 @@ dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.4.0.tgz
 
 | 层 | 实现 |
 |---|---|
-| 宿主 | `lib/index.js`——cordis 插件：9 个 POST 路由 `/dsh-session-folders/{list,create,rename,delete,move,reorder-folders,reorder-workspaces,pin,unarchive}`；自有存储域 `dsh_session_folders`（一条全局记录保存文件夹列表）；所有变更经 promise 队列串行化，两个浏览器不会互相覆盖；工作区与会话归属通过 `ctx.workspaceRegistry` 校验 |
+| 宿主 | `lib/index.js`——cordis 插件：10 个 POST 路由 `/dsh-session-folders/{list,create,rename,delete,move,reorder-folders,reorder-workspaces,pin,unarchive}`；自有存储域 `dsh_session_folders`（一条全局记录保存文件夹列表）；所有变更经 promise 队列串行化，两个浏览器不会互相覆盖；工作区与会话归属通过 `ctx.workspaceRegistry` 校验 |
 | 客户端 | `lib/client.js`——通过 `window.__ModuleLoader__.load` 加载的 bundle，注册在 `sidebar.workspaces` 槽位（优先级 -1）；依赖服务 `slots / locale / sessions / workspaces`；视图状态保存在 localStorage（`dsh.session-folders.view.v1`） |
 
 - 文件夹不影响会话归属：工作区拥有会话，文件夹只是分组。不在任何文件夹中的会话即自由会话

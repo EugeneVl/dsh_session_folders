@@ -11,6 +11,8 @@ A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace 
 - **Session folders**: one level of named folders per workspace; sessions outside folders live in the "inbox" (loose) bucket
 - **Move sessions**: drag-and-drop a session onto a folder, or use the row context menu — "Move to folder…", with a "New folder…" entry that creates a folder and moves the session into it on the spot; the submenu's "Workspace" entry returns a session from a folder to the loose bucket
 - **Folder management**: create, rename, delete (with confirmation); names are unique per workspace (case-insensitive)
+- **Inline rename**: double-click a session title to rename it in place — Enter commits, Esc cancels
+- **Auto rename**: the session context menu offers "Auto rename" — the session's own model reads its first user message and derives a short 3–4 word title (a description of the process, feature, or task, in the message's language); the result is pinned like a manual rename
 - **Reorder by drag-and-drop**: drag a workspace row to reorder workspaces; drag a folder row to reorder folders inside its workspace (folders stay above the loose sessions, session sorting by time is unchanged); the order is persisted server-side
 - **Show more / Show less** in every folder and the Archive block: at most five sessions are shown until the overflow row is clicked; the expanded state is per folder and local to the browser session
 
@@ -72,7 +74,7 @@ dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.4.0.tgz
 #### Folders
 
 1. **Create a folder** — right-click the workspace row → "New folder"; the name must be unique within the workspace
-2. **Rename / delete a folder** — right-click the folder row; deletion asks for confirmation and the folder's sessions become loose
+2. **Rename / delete a folder** — right-click the folder row → "Rename"; deletion asks for confirmation and the folder's sessions become loose
 3. **Reorder** — drag a workspace row to a new position; drag a folder row within its workspace (drop on the upper/lower half of a row to place it before/after)
 
 #### Sessions
@@ -81,7 +83,9 @@ dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.4.0.tgz
 2. **Move back to the loose area** — right-click the session → "Move to folder…" → "Workspace" (the first entry)
 3. **Pin a session** — right-click it → "Pin": the session jumps to the top of its folder (or of the loose bucket) and stays there while other sessions come and go; "Unpin" restores the newest-first order; a pinned session with no status badge is marked with a small pin icon in its status slot
 4. **New session** — the plus button on a workspace row starts a session in that workspace; the smaller plus on a folder row starts a session directly inside that folder
-5. **Quick archive** — hover a session row: the timestamp is replaced by an archive icon; click it to archive the session
+5. **Rename a session** — double-click its title (Enter commits, Esc cancels), or right-click → "Rename"
+6. **Auto rename** — right-click the session → "Auto rename": the session's model derives a 3–4 word title from the first user message. Generates nothing while the menu is idle; failures surface in the notice bar
+7. **Quick archive** — hover a session row: the timestamp is replaced by an archive icon; click it to archive the session
 
 #### Archive & restore
 
@@ -104,7 +108,7 @@ dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.4.0.tgz
 
 | Layer | Implementation |
 |---|---|
-| Host | `lib/index.js` — a cordis plug-in: 9 POST routes `/dsh-session-folders/{list,create,rename,delete,move,reorder-folders,reorder-workspaces,pin,unarchive}`; its own storage domain `dsh_session_folders` (one global record holding the folder list); mutations are serialized through a promise tail so two browsers cannot overwrite each other; workspace and session membership are validated via `ctx.workspaceRegistry` |
+| Host | `lib/index.js` — a cordis plug-in: 10 POST routes `/dsh-session-folders/{list,create,rename,delete,move,reorder-folders,reorder-workspaces,pin,unarchive}`; its own storage domain `dsh_session_folders` (one global record holding the folder list); mutations are serialized through a promise tail so two browsers cannot overwrite each other; workspace and session membership are validated via `ctx.workspaceRegistry` |
 | Client | `lib/client.js` — a bundle loaded via `window.__ModuleLoader__.load`, registered in the `sidebar.workspaces` slot (priority -1); services `slots / locale / sessions / workspaces`; view state in localStorage (`dsh.session-folders.view.v1`) |
 
 - Folders do not touch session accounting: the workspace owns sessions, folders are only grouping. A session listed in no folder is loose by definition

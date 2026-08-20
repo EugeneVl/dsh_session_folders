@@ -16,6 +16,8 @@
 - **Open workspace folder**: the first button on a workspace row (folder icon) opens the workspace root directory in the system file manager (host's native `openPath` API)
 - Restoring a session with a click now expands the **Restored** folder automatically when it was collapsed, so the restored session is immediately visible
 - **Recent section**: above the workspace list, the five most recent workspace sessions (folders + loose area); clicking one opens it and highlights it in Recent and in its workspace/folder; the header collapses the section (state persists, Collapse all / Expand all apply)
+- **Inline rename**: double-click a session title to edit it in place (Enter commits, Esc cancels; folders keep the click-to-collapse behavior, renaming stays in the context menu)
+- **Auto rename**: the session context menu gains "Auto rename" — the session's own model reads its first user message and derives a short 3-4 word title (a description of the process, feature, or task, in the message's language); the result is pinned exactly like a manual rename and never overwritten by automatic title generation. Live sessions only (closed ones show a clear notice); errors are localized
 
 ## v0.3.0 (2026-08-19)
 
