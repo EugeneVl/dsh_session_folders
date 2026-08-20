@@ -19,6 +19,12 @@
 - **Inline rename**: double-click a session title to edit it in place (Enter commits, Esc cancels; folders keep the click-to-collapse behavior, renaming stays in the context menu)
 - **Auto rename**: the session context menu gains "Auto rename" — the session's own model reads its first user message and derives a short 3-4 word title (a description of the process, feature, or task, in the message's language); the result is pinned exactly like a manual rename and never overwritten by automatic title generation. Live sessions only (closed ones show a clear notice); errors are localized
 
+### Fixed
+
+- New-workspace dialog: a double click (or a second click before the button re-renders) no longer opens a second native folder picker; a busy guard ignores repeat clicks while one pick is in flight
+- New-workspace dialog: the "Couldn't create the workspace" error after a successful create is gone — the success check now matches the client service contract (it throws on failure and returns the workspace entity on success)
+- "Move to folder → New folder…": the flow crashed (`confirmNewFolder is not defined`); the function is restored as its own top-level handler and the rename-folder handler no longer swallows it
+
 ## v0.3.0 (2026-08-19)
 
 ### Added
