@@ -24,6 +24,9 @@
 - New-workspace dialog: a double click (or a second click before the button re-renders) no longer opens a second native folder picker; a busy guard ignores repeat clicks while one pick is in flight
 - New-workspace dialog: the "Couldn't create the workspace" error after a successful create is gone — the success check now matches the client service contract (it throws on failure and returns the workspace entity on success)
 - "Move to folder → New folder…": the flow crashed (`confirmNewFolder is not defined`); the function is restored as its own top-level handler and the rename-folder handler no longer swallows it
+- Auto rename: the model token budget is raised to 512 so reasoning-style models finish their chain of thought and still emit the title; the title wording is capped at 3 words (prepositions not counted), reasoning is explicitly forbidden in the prompt
+- Open workspace folder: the button now goes through a plugin route that spawns the system file manager directly (the harness `host.openPath` RPC returned success without opening for some paths); the route validates the path and only opens existing directories
+- Workspace drag-reorder: a drop zone below the last workspace row lets a dragged workspace be placed at the end of the list (previously a drop into the empty space below was ignored)
 
 ## v0.3.0 (2026-08-19)
 
