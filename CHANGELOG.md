@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.5.0 (2026-08-21)
+
+### Added
+
+- **Session ID badge**: hovering a session row reveals a small `id` badge left of the quick-archive button; one click copies `session-<id>` of that row to the clipboard (clipboard API with an execCommand fallback), the badge flashes a check mark for a moment, and the row itself is not opened
+
 ## v0.4.2 (2026-08-21)
 
 ### Fixed
