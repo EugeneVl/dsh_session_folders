@@ -68,7 +68,7 @@ dsh plugin --profile web add dsh-session-folders
 ### Из GitHub
 
 ```sh
-dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#v0.4.2'
+dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#v0.4.3'
 ```
 
 ### Из локального каталога

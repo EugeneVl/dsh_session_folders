@@ -1,32 +1,17 @@
 # Changelog
 
-## v0.8.0 (2026-08-21)
-
-### Added
-
-- **Workspace focus mode**: hovering a workspace row reveals a crosshair toggle (also in the row's context menu); when on, only that workspace is listed — Recent, other workspaces, the Ungrouped bucket and the end-of-list drop zone hide until the focus is toggled off. Ephemeral by design: a restart shows everything again; a focused workspace that disappears unfocuses safely
-
-## v0.7.0 (2026-08-21)
-
-### Added
-
-- **Recent origin card**: hovering a session in the Recent section pops a small card to the right of the row (outside the list, portaled to the page body) showing the workspace and folder the session lives in — no more guessing where a Recent session belongs. Hides with the hover; replaces the native time tooltip on those rows. Clicking such a session reveals its home: the workspace group and folder expand and the list scrolls to the original row
-
-### Changed
-
-- The open session is now highlighted with a firm blue tint everywhere (Recent and the main tree) instead of the pale gray hover color that was easy to miss
-
-## v0.6.0 (2026-08-21)
-
-### Added
-
-- **Folder tree guides**: a semi-transparent dashed trunk drops from each folder icon through the icon column to its sessions, with a small tick toward every session title; the session status icon paints over the line, as intended. When a folder holds the open session, its whole guide tree paints business blue. Drawn with pure CSS pseudo-elements (no measuring — scrolling and layout changes are free). Toggled by a new header button (on by default, persisted per browser)
-
-## v0.5.0 (2026-08-21)
+## v0.4.3 (2026-08-21)
 
 ### Added
 
 - **Session ID badge**: hovering a session row reveals a small `id` badge left of the quick-archive button; one click copies `session-<id>` of that row to the clipboard (clipboard API with an execCommand fallback), the badge flashes a check mark for a moment, and the row itself is not opened
+- **Folder tree guides**: a semi-transparent dashed trunk drops from each folder icon through the icon column to its sessions, with a small tick toward every session title; the session status icon paints over the line, as intended. When a folder holds the open session, its whole guide tree paints business blue. Drawn with pure CSS pseudo-elements (no measuring — scrolling and layout changes are free). Toggled by a new header button (on by default, persisted per browser)
+- **Recent origin card**: hovering a session in the Recent section pops a small card to the right of the row (outside the list, portaled to the page body) showing the workspace and folder the session lives in — no more guessing where a Recent session belongs. Hides with the hover; replaces the native time tooltip on those rows. Clicking such a session reveals its home: the workspace group and folder expand and the list scrolls to the original row
+- **Workspace focus mode**: hovering a workspace row reveals a crosshair toggle (also in the row's context menu); when on, only that workspace is listed — Recent, other workspaces, the Ungrouped bucket and the end-of-list drop zone hide until the focus is toggled off. Ephemeral by design: a restart shows everything again; a focused workspace that disappears unfocuses safely
+
+### Changed
+
+- The open session is now highlighted with a firm blue tint everywhere (Recent and the main tree) instead of the pale gray hover color that was easy to miss
 
 ## v0.4.2 (2026-08-21)
 

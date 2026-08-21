@@ -1,6 +1,6 @@
 {
   "name": "dsh-session-folders",
-  "version": "0.8.0",
+  "version": "0.4.3",
   "description": "Session folders for the DSH web sidebar: one-level named folders per workspace to group sessions, drag-and-drop or context menu to move them, server-side persistence. Status badges mirror the built-in session browser.",
   "type": "module",
   "main": "lib/index.js",
