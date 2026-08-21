@@ -42,6 +42,14 @@
 
 ## Установка
 
+### Из npm
+
+```sh
+dsh plugin --profile web add dsh-session-folders
+```
+
+Установка готового пакета из реестра — пропускает шаг одобрения сборки (`allowBuilds`).
+
 ### Из GitHub
 
 ```sh

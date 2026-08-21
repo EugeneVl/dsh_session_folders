@@ -42,6 +42,14 @@
 
 ## 安装
 
+### 从 npm
+
+```sh
+dsh plugin --profile web add dsh-session-folders
+```
+
+从注册表安装预构建包——跳过 `allowBuilds` 构建审批步骤。
+
 ### 从 GitHub
 
 ```sh

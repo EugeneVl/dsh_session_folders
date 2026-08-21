@@ -44,6 +44,14 @@ A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace 
 
 ## Installation
 
+### From npm
+
+```sh
+dsh plugin --profile web add dsh-session-folders
+```
+
+A prebuilt install from the registry — skips the `allowBuilds` build-approval step.
+
 ### From GitHub
 
 ```sh
