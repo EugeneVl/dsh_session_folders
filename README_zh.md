@@ -71,19 +71,6 @@ dsh plugin --profile web add dsh-session-folders
 dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#v0.4.3'
 ```
 
-### 从本地目录
-
-```sh
-dsh plugin --profile web add /absolute/path/to/dsh-session-folders
-```
-
-### 从打包文件
-
-```sh
-pnpm pack
-dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.4.0.tgz
-```
-
 安装后请**重启** `dsh web`（宿主插件与客户端 bundle 在启动时加载）。
 
 ## 使用

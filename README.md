@@ -73,19 +73,6 @@ A prebuilt install from the registry — skips the `allowBuilds` build-approval 
 dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#v0.4.3'
 ```
 
-### From a local directory
-
-```sh
-dsh plugin --profile web add /absolute/path/to/dsh-session-folders
-```
-
-### From a tarball
-
-```sh
-pnpm pack
-dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.4.0.tgz
-```
-
 **Restart** `dsh web` after installing (the host plugin and the client bundle are loaded at startup).
 
 ## Usage

@@ -71,19 +71,6 @@ dsh plugin --profile web add dsh-session-folders
 dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#v0.4.3'
 ```
 
-### Из локального каталога
-
-```sh
-dsh plugin --profile web add /absolute/path/to/dsh-session-folders
-```
-
-### Из tarball
-
-```sh
-pnpm pack
-dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.4.0.tgz
-```
-
 После установки **перезапустите** `dsh web` (хост-плагин и клиентский bundle загружаются при старте).
 
 ## Использование
