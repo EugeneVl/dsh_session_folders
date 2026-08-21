@@ -31,6 +31,7 @@ A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace 
 - **Context menus**: every session / folder / workspace row opens its actions menu on right-click (the per-row "…" buttons are removed); each action carries an icon
 - **Pin / Unpin sessions**: a pinned session always sits first in its folder or in the loose bucket; the pin is persisted server-side and follows the session when it is moved; a pinned session with no status badge shows a small pin icon in its status slot
 - **Quick archive on hover**: hovering a session row swaps the timestamp for a small archive icon — one click archives the session (same as the context-menu action); the swap happens in place, so the layout never shifts
+- **Session ID badge**: right next to the quick-archive icon, hovering a session row also reveals a small `ID` badge — one click copies `session-<id>` of that row to the clipboard
 - **New session buttons**: a plus icon on a workspace row starts a new session in that workspace; a smaller plus on a folder row starts a session directly inside that folder (the created blank session is moved into the folder and opened)
 - **Status badges** Running / Completed — mirroring the built-in session browser
 
@@ -42,15 +43,19 @@ A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace 
 #### Navigation
 
 - **Recent section**: above the workspace list, the five most recent workspace sessions (from folders or the loose area), newest first; clicking one opens it in chat, expands collapsed workspace/folder levels so it is visible, and it stays highlighted both in Recent and in its workspace/folder. The header collapses/expands the section (state persists)
+- **Recent origin card**: hovering a Recent session pops a small card to the right of the row showing the workspace and folder it lives in
+- **Folder tree guides**: dashed guide lines drop from each folder icon to its sessions; the whole tree of the folder holding the open session paints blue. Toggle in the browser header (on by default)
 - **Session search** with match highlighting — by title and content
 - **Open workspace folder**: the first button on a workspace row (folder icon) opens the workspace root directory with the operating system's default file manager, via the host's native `openPath` API
 - **Collapse / expand all**: the chevron button pair in the browser header folds and unfolds every workspace group, folder, the Recent section and the Archive blocks in one click
+- **Workspace focus**: the crosshair toggle on a workspace row (also in its context menu) hides everything else — other workspaces, Recent, Ungrouped — until toggled off; focus resets on restart
 
 #### Persistence & UI
 
 - **Server-side persistence**: folders live in a DSH storage domain and survive page reloads; view state (collapsed folders, etc.) lives in browser localStorage
 - **The server is the source of truth**: every action is validated server-side (workspace existence, session membership, name conflicts); the client only mirrors the rules
 - **Bilingual UI**: adapts to the page language (zh / en)
+- **Collapsed sidebar**: in the narrow rail only the search and new-workspace buttons render, mirroring the built-in browser
 
 ## Installation
 
