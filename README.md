@@ -55,7 +55,7 @@ A prebuilt install from the registry — skips the `allowBuilds` build-approval 
 ### From GitHub
 
 ```sh
-dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#v0.4.0'
+dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#v0.4.2'
 ```
 
 ### From a local directory

@@ -53,7 +53,7 @@ dsh plugin --profile web add dsh-session-folders
 ### 从 GitHub
 
 ```sh
-dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#v0.4.0'
+dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#v0.4.2'
 ```
 
 ### 从本地目录
