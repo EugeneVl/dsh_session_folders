@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.4.1 (2026-08-21)
+
+### Added
+
+- Auto rename: a second concurrent auto-rename of the same session gets an immediate localized "already running" notice instead of racing the first model stream
+- Pure folder helpers (name parsing, conflict check, exact-id-set validation, auto-title normalization) extracted into `lib/folder-utils.js` with a minimal `node:test` suite (`npm test`)
+
+### Fixed
+
+- Route hardening: every plugin route rejects non-JSON content types (400), cross-site fetches (403), and browser requests whose Origin does not match the Host (403); same-origin UI flows and Origin-less clients (curl/scripts) are unaffected
+- Unarchive: the read-filter-write-poke of the registry's archive set runs inside the workspace registry's operation queue, so a concurrent archive from another browser can no longer lose an update (logged direct-write fallback when the queue is unavailable); missing workspace internals now answer 500 `workspace-internals-changed` instead of failing mid-write
+- Restore-by-click reuses an existing "restored" folder regardless of letter case, and case-variant "Restored" folders no longer appear in the move submenu
+- READMEs: auto-rename wording corrected to the actual "at most 3 words" cap in all three languages
+
 ## v0.4.0 (2026-08-20)
 
 ### Added

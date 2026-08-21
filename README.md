@@ -12,7 +12,7 @@ A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace 
 - **Move sessions**: drag-and-drop a session onto a folder, or use the row context menu — "Move to folder…", with a "New folder…" entry that creates a folder and moves the session into it on the spot; the submenu's "Workspace" entry returns a session from a folder to the loose bucket
 - **Folder management**: create, rename, delete (with confirmation); names are unique per workspace (case-insensitive)
 - **Inline rename**: double-click a session title to rename it in place — Enter commits, Esc cancels
-- **Auto rename**: the session context menu offers "Auto rename" — the session's own model reads its first user message and derives a short 3–4 word title (a description of the process, feature, or task, in the message's language); the result is pinned like a manual rename
+- **Auto rename**: the session context menu offers "Auto rename" — the session's own model reads its first user message and derives a short title of at most 3 words (a description of the process, feature, or task, in the message's language); the result is pinned like a manual rename
 - **Reorder by drag-and-drop**: drag a workspace row to reorder workspaces; drag a folder row to reorder folders inside its workspace (folders stay above the loose sessions, session sorting by time is unchanged); the order is persisted server-side
 - **Show more / Show less** in every folder and the Archive block: at most five sessions are shown until the overflow row is clicked; the expanded state is per folder and local to the browser session
 
@@ -92,7 +92,7 @@ dsh plugin --profile web add /absolute/path/to/dsh-session-folders-0.4.0.tgz
 3. **Pin a session** — right-click it → "Pin": the session jumps to the top of its folder (or of the loose bucket) and stays there while other sessions come and go; "Unpin" restores the newest-first order; a pinned session with no status badge is marked with a small pin icon in its status slot
 4. **New session** — the plus button on a workspace row starts a session in that workspace; the smaller plus on a folder row starts a session directly inside that folder
 5. **Rename a session** — double-click its title (Enter commits, Esc cancels), or right-click → "Rename"
-6. **Auto rename** — right-click the session → "Auto rename": the session's model derives a 3–4 word title from the first user message. Generates nothing while the menu is idle; failures surface in the notice bar
+6. **Auto rename** — right-click the session → "Auto rename": the session's model derives a title of at most 3 words from the first user message. Generates nothing while the menu is idle; failures surface in the notice bar
 7. **Quick archive** — hover a session row: the timestamp is replaced by an archive icon; click it to archive the session
 
 #### Archive & restore
