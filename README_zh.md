@@ -2,6 +2,16 @@
 
 面向 DeepSeek Harness Web 界面的会话文件夹插件：侧边栏的会话浏览器被替换为支持**会话文件夹**的浏览器——每个工作区（workspace）可建立一层命名的文件夹。会话可通过拖拽或右键菜单移入文件夹；文件夹数据保存在服务端，刷新页面后依然保留。状态徽章与原版会话浏览器一致。不需要修改 Harness 本体。
 
+## 截图
+
+<table>
+  <tr>
+    <td><img src="https://raw.githubusercontent.com/EugeneVl/dsh_session_folders/master/assets/screenshot-1.jpg" alt="dsh-session-folders screenshot 1" width="280"></td>
+    <td><img src="https://raw.githubusercontent.com/EugeneVl/dsh_session_folders/master/assets/screenshot-2.jpg" alt="dsh-session-folders screenshot 2" width="280"></td>
+    <td><img src="https://raw.githubusercontent.com/EugeneVl/dsh_session_folders/master/assets/screenshot-3.jpg" alt="dsh-session-folders screenshot 3" width="280"></td>
+  </tr>
+</table>
+
 ## 功能
 
 #### 组织

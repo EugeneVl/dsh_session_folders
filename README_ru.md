@@ -2,6 +2,16 @@
 
 Плагин папок сессий для веб-интерфейса DeepSeek Harness: браузер воркспейсов в сайдбаре заменяется на браузер с **папками сессий** — один уровень именованных папок на воркспейс. Сессии можно перетаскивать в папки или перемещать через контекстное меню; данные папок хранятся на сервере и переживают перезагрузку страницы. Бейджи статусов повторяют встроенный браузер сессий. Изменений в самом Harness не требуется.
 
+## Скриншоты
+
+<table>
+  <tr>
+    <td><img src="https://raw.githubusercontent.com/EugeneVl/dsh_session_folders/master/assets/screenshot-1.jpg" alt="dsh-session-folders screenshot 1" width="280"></td>
+    <td><img src="https://raw.githubusercontent.com/EugeneVl/dsh_session_folders/master/assets/screenshot-2.jpg" alt="dsh-session-folders screenshot 2" width="280"></td>
+    <td><img src="https://raw.githubusercontent.com/EugeneVl/dsh_session_folders/master/assets/screenshot-3.jpg" alt="dsh-session-folders screenshot 3" width="280"></td>
+  </tr>
+</table>
+
 ## Возможности
 
 #### Организация
