@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.4.2 (2026-08-21)
+
+### Fixed
+
+- Sidebar layout: with enough expanded folders/sessions to scroll, workspace group rows overlapped the sessions above them — the scrolling flex column squeezed list items below their content (loose buckets collapsed to their 4px minimum, the end-of-list drop zone to zero) and the rows inside painted over the neighbouring groups; list children no longer shrink (`flex-shrink: 0`)
+
 ## v0.4.1 (2026-08-21)
 
 ### Added
