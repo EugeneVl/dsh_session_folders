@@ -1,8 +1,6 @@
 # Changelog
 
-## v0.5.0-local.1 (2026-09-09)
-
-> Local fork (multi-level folders), built on upstream v0.4.3 plus the unreleased amber pending-status fix.
+## v0.5.0 (unreleased)
 
 ### Added
 
