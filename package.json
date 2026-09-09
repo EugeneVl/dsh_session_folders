@@ -1,7 +1,7 @@
 {
   "name": "dsh-session-folders",
-  "version": "0.4.3",
-  "description": "Session folders for the DSH web sidebar: one-level named folders per workspace to group sessions, drag-and-drop or context menu to move them, server-side persistence. Status badges mirror the built-in session browser.",
+  "version": "0.5.0-local.1",
+  "description": "Session folders for the DSH web sidebar: nested named folders per workspace to group sessions, drag-and-drop or context menu to move them, server-side persistence. Status badges mirror the built-in session browser.",
   "type": "module",
   "main": "lib/index.js",
   "scripts": {
@@ -44,7 +44,8 @@
     "react": "^18.2.0",
     "zod": "^4.4.3",
     "@deepseek-ai/dsh-storage-domain": ">=0.1.0-rc.6 <0.2.0 || >=0.1.1-rc.1 <0.2.0-0",
-    "@deepseek-ai/dsh-workspace": ">=0.1.0-rc.6 <0.2.0 || >=0.1.1-rc.1 <0.2.0-0"
+    "@deepseek-ai/dsh-workspace": ">=0.1.0-rc.6 <0.2.0 || >=0.1.1-rc.1 <0.2.0-0",
+    "@deepseek-ai/dsh-llm": ">=0.1.0-rc.6 <0.2.0 || >=0.1.1-rc.1 <0.2.0-0"
   },
   "engines": {
     "node": "^22.19.0 || >=24.0.0"
