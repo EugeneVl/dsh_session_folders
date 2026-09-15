@@ -1,5 +1,30 @@
 # Changelog
 
+## v0.5.0 (unreleased)
+
+### Added
+
+- **Nested folders**: a folder can contain folders (folder context menu → "New subfolder"); the tree renders with per-level indentation and collapsing a parent hides its whole branch. Identity is the folder id, so **duplicate folder names are now allowed** — even among siblings — and the old workspace-wide uniqueness rule is gone
+- **Move folders**: the folder context menu gains "Move to folder…", sharing one picker with the session menu; "Up one level" re-parents a folder to its grandparent
+- **Level-scoped move submenu**: the old flat "all folders" submenu now only lists the neighbourhood of the item's own level — the subfolders of the item's container (picking one moves it down one level), the position one level up, and the root — so a deep tree never becomes an endless menu. The submenu is capped at five rows (384px overall) and scrolls with the wheel beyond that; it still opens on hover, as before nesting, and now carries a trailing chevron (the Menu primitive draws no affordance for submenus)
+- **Two deletion modes**: deleting a folder now asks whether to delete only that folder (its subfolders and its own sessions move up one level, into the folder's own position) or the whole subtree (every session below moves up to that same position). Sessions are never deleted
+- **Restored folder flag**: the virtual "Restored" folder is identified by a record flag instead of its name; records written before nesting are still recognized by name at root level
+- Folder paths in the move-submenu tooltips and in the Recent origin card, so identically named folders stay distinguishable
+
+### Changed
+
+- Folder drag-and-drop reorders siblings only; nesting is done through the context menu
+- **Storage unit renamed to `dsh_session_folders_v050`**: the nested-folder shape is a breaking change, so it lives in its own unit file (`~/.dsh/storages/dsh_session_folders_v050.json`, seeded from the v0.4.x file) instead of migrating in place. The v0.4.x file stays untouched, and a stale build that only knows the old unit can neither read nor flatten the new tree
+
+### Fixed
+
+- Clicking a session in Recent (origin card) expands every ancestor folder, not just the leaf, so a nested session is actually revealed
+
+### Notes for maintainers
+
+- `parentId` and `restored` stay **optional** and the unit version stays 1: a required field would make the seeded copy unreadable (records written before nesting carry no parentId), and a plug-in that fails to open its domain fails activation, which aborts DSH startup (`assertEntriesActivated`)
+- The version-suffixed unit name is what makes the change safe to ship: the pre-nesting build keeps reading and writing `dsh_session_folders.json`, so it cannot reach the new tree. Seeding the new unit is the entire migration — copy the old file, rewrite the header's `name` to match the unit name; there is no migration code in the plug-in to maintain
+
 ## v0.4.3 (2026-08-21)
 
 ### Added

@@ -4,9 +4,16 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { hasNameConflict, isExactIdSet, normalizeAutoTitle, parseFolderName } from "../lib/folder-utils.js";
+import { collectSubtreeIds, effectiveParentId, isDescendant, isExactIdSet, normalizeAutoTitle, parseFolderName } from "../lib/folder-utils.js";
 
-const folder = (id, workspaceId, name) => ({ id, workspaceId, name, sessionIds: [] });
+/** Folder record with an optional parent (omitted = root, as legacy records are). */
+const folder = (id, workspaceId, name, parentId) => ({
+	id,
+	workspaceId,
+	name,
+	sessionIds: [],
+	...(parentId === undefined ? {} : { parentId })
+});
 
 test("isExactIdSet accepts a permutation without repeats", () => {
 	assert.equal(isExactIdSet(["b", "c", "a"], new Set(["a", "b", "c"])), true);
@@ -63,20 +70,55 @@ test("parseFolderName rejects missing or non-string names", () => {
 	assert.equal(parseFolderName({ name: 42 }), void 0);
 });
 
-test("hasNameConflict is case-insensitive within a workspace", () => {
-	const folders = [folder("1", "w1", "Restored")];
-	assert.equal(hasNameConflict(folders, "w1", "restored"), true);
-	assert.equal(hasNameConflict(folders, "w1", "RESTORED"), true);
-	assert.equal(hasNameConflict(folders, "w1", "other"), false);
+test("effectiveParentId folds absent, empty and self pointers into root", () => {
+	const folders = [folder("a", "w1", "A"), folder("b", "w1", "B", "a")];
+	assert.equal(effectiveParentId(folders, undefined), null);
+	assert.equal(effectiveParentId(folders, null), null);
+	assert.equal(effectiveParentId(folders, ""), null);
+	assert.equal(effectiveParentId(folders, "a"), "a");
 });
 
-test("hasNameConflict honors exceptId (rename of itself)", () => {
-	const folders = [folder("1", "w1", "Notes")];
-	assert.equal(hasNameConflict(folders, "w1", "Notes", "1"), false);
-	assert.equal(hasNameConflict(folders, "w1", "Notes", "2"), true);
+test("effectiveParentId treats a missing parent as root", () => {
+	// Damaged data (parent deleted outside this workspace): the subtree must
+	// still render instead of vanishing.
+	const folders = [folder("b", "w1", "B", "ghost")];
+	assert.equal(effectiveParentId(folders, "ghost"), null);
 });
 
-test("hasNameConflict isolates workspaces", () => {
-	const folders = [folder("1", "w1", "Notes")];
-	assert.equal(hasNameConflict(folders, "w2", "Notes"), false);
+test("collectSubtreeIds returns the whole subtree including the root", () => {
+	const folders = [
+		folder("a", "w1", "A"),
+		folder("b", "w1", "B", "a"),
+		folder("c", "w1", "C", "b"),
+		folder("d", "w1", "D")
+	];
+	assert.deepEqual([...collectSubtreeIds(folders, "a")].sort(), ["a", "b", "c"]);
+	assert.deepEqual([...collectSubtreeIds(folders, "d")], ["d"]);
+});
+
+test("collectSubtreeIds terminates on a parent cycle", () => {
+	// A cycle cannot be produced by the routes any more, but damaged data must
+	// not hang the delete route.
+	const folders = [folder("a", "w1", "A", "b"), folder("b", "w1", "B", "a")];
+	assert.deepEqual([...collectSubtreeIds(folders, "a")].sort(), ["a", "b"]);
+});
+
+test("isDescendant detects strict descendants only", () => {
+	const folders = [
+		folder("a", "w1", "A"),
+		folder("b", "w1", "B", "a"),
+		folder("c", "w1", "C", "b"),
+		folder("d", "w1", "D")
+	];
+	assert.equal(isDescendant(folders, "b", "a"), true);
+	assert.equal(isDescendant(folders, "c", "a"), true);
+	assert.equal(isDescendant(folders, "a", "a"), false);
+	assert.equal(isDescendant(folders, "a", "b"), false);
+	assert.equal(isDescendant(folders, "d", "a"), false);
+});
+
+test("isDescendant survives a cycle", () => {
+	const folders = [folder("a", "w1", "A", "b"), folder("b", "w1", "B", "a")];
+	assert.equal(isDescendant(folders, "a", "b"), true);
+	assert.equal(isDescendant(folders, "b", "a"), true);
 });

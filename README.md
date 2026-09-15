@@ -2,7 +2,7 @@
 
 [**中文版 README**](README_zh.md) · [**Русская версия README**](README_ru.md)
 
-A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace browser is replaced with a browser that adds **session folders** — one level of named folders per workspace. Sessions can be dragged into folders or moved via the context menu; folder data is persisted server-side and survives page reloads. Status badges mirror the built-in session browser. No harness changes.
+A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace browser is replaced with a browser that adds **session folders** — nested named folders per workspace. Sessions can be dragged into folders or moved via the context menu; folder data is persisted server-side and survives page reloads. Status badges mirror the built-in session browser. No harness changes.
 
 ## Screenshots
 
@@ -18,9 +18,9 @@ A session-folders plugin for the DeepSeek Harness web UI: the sidebar workspace 
 
 #### Organization
 
-- **Session folders**: one level of named folders per workspace; sessions outside folders live in the "inbox" (loose) bucket
-- **Move sessions**: drag-and-drop a session onto a folder, or use the row context menu — "Move to folder…", with a "New folder…" entry that creates a folder and moves the session into it on the spot; the submenu's "Workspace" entry returns a session from a folder to the loose bucket
-- **Folder management**: create, rename, delete (with confirmation); names are unique per workspace (case-insensitive)
+- **Session folders**: nested named folders per workspace (folder context menu → "New subfolder"), indented per level; sessions outside folders live in the "inbox" (loose) bucket
+- **Move sessions and folders**: drag-and-drop a session onto a folder, or use the row context menu — "Move to folder…" (the submenu opens on hover). It only lists the neighbourhood of the item's own level: the subfolders of the item's container (picking one moves the item **down one level**; five visible, the rest wheel-scrollable), the position one level up, and the root / loose area, plus "New folder…" which creates the folder and moves the item in on the spot
+- **Folder management**: create, create subfolder, rename, move, delete. Deleting asks for one of two modes — "Delete this folder only" (subfolders and their sessions move up one level) or "Delete this folder and its subfolders" (the whole subtree goes, every session moves up to the folder's own position). Sessions are never deleted
 - **Inline rename**: double-click a session title to rename it in place — Enter commits, Esc cancels
 - **Auto rename**: the session context menu offers "Auto rename" — the session's own model reads its first user message and derives a short title of at most 3 words (a description of the process, feature, or task, in the message's language); the result is pinned like a manual rename
 - **Reorder by drag-and-drop**: drag a workspace row to reorder workspaces; drag a folder row to reorder folders inside its workspace (folders stay above the loose sessions, session sorting by time is unchanged); the order is persisted server-side
@@ -123,14 +123,14 @@ dsh plugin --profile web add 'github:EugeneVl/dsh_session_folders#v0.4.3'
 
 - Folders do not touch session accounting: the workspace owns sessions, folders are only grouping. A session listed in no folder is loose by definition
 - Deleting a workspace does not delete folder records: they stop being served (filtered by live workspace ids) and stay harmlessly in storage
-- DSH domains guarantee durability-first writes; the storage file is `~/.dsh/storages/dsh_session_folders.json`
+- DSH domains guarantee durability-first writes. Nesting is a breaking change, so the new shape uses a **version-suffixed storage unit**: `~/.dsh/storages/dsh_session_folders_v050.json` (seeded from the v0.4.x `dsh_session_folders.json`); the old file stays as the v0.4.x record and a pre-nesting build can neither read nor flatten the new tree (see the comment at the domain name in `lib/index.js`)
 - No system-prompt changes, no new model tools — zero token impact
 
 ## Limitations
 
-- One folder level only: nested folders are not supported
+- Folder drag-and-drop reorders siblings only; cross-level moves go through the "Move to folder…" picker
 - A session can only be moved into a folder of the workspace that owns it; a session outside every workspace (unaccounted) cannot enter a folder
-- Folder names are capped at 80 characters; duplicate names are rejected (case-insensitive)
+- Folder names are capped at 80 characters; **duplicates are allowed** (identity is the folder id — the picker and tooltips disambiguate with the full path)
 - Reordering works with the server as the source of truth: the client submits the full ordered id list and the server validates it (workspaces cannot be dropped outside the live set, folders cannot leave their workspace)
 
 ## Compatibility
